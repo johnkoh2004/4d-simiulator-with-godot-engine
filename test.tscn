@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 76.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 100, 100 )
+
+[node name="Node" type="Node"]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 431, 281 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2( 767.6, 327.75 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource( 2 )

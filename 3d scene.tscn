@@ -1,0 +1,172 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Display sphere.gd" type="Script" id=1]
+[ext_resource path="res://Sphere1.gd" type="Script" id=2]
+[ext_resource path="res://Sphere2.gd" type="Script" id=3]
+[ext_resource path="res://3D Plane.gd" type="Script" id=4]
+[ext_resource path="res://HSlider.gd" type="Script" id=5]
+[ext_resource path="res://grass.tres" type="Material" id=6]
+
+[sub_resource type="PhysicsMaterial" id=1]
+bounce = 1.0
+
+[sub_resource type="SphereShape" id=2]
+radius = 5.0
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 1, 0.462745, 0.462745, 1 )
+metallic = 0.5
+
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 3 )
+radius = 5.0
+height = 10.0
+
+[sub_resource type="SphereMesh" id=5]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="SphereMesh" id=6]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 50, 25, 0.1 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 50, 1, 50 )
+
+[sub_resource type="CubeMesh" id=9]
+material = ExtResource( 6 )
+size = Vector3( 100, 2, 100 )
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 1, 5, 50 )
+
+[sub_resource type="CubeMesh" id=11]
+size = Vector3( 2, 10, 100 )
+
+[node name="Node" type="Node"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-008, -0.34202, 0.939693, 0, 0.939693, 0.34202, -1, 1.49502e-008, -4.10753e-008, 40, 40, 0 )
+fov = 89.1241
+
+[node name="Display sphere" type="RigidBody" parent="."]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0 )
+mass = 10.0
+physics_material_override = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Display sphere"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Display sphere"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Sphere1" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, -10 )
+mass = 10.0
+physics_material_override = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Sphere1"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Sphere1"]
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Sphere2" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 10 )
+mass = 10.0
+physics_material_override = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Sphere2"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Sphere2"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="3D Plane" type="Area" parent="."]
+transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 25, 0 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="3D Plane"]
+shape = SubResource( 7 )
+
+[node name="UI" type="Control" parent="."]
+margin_left = 13.718
+margin_top = 16.2901
+margin_right = 53.718
+margin_bottom = 56.2901
+
+[node name="HSlider" type="HSlider" parent="UI"]
+margin_left = -14.2144
+margin_top = -15.162
+margin_right = 208.785
+margin_bottom = 0.837955
+min_value = -50.0
+max_value = 50.0
+ticks_on_borders = true
+script = ExtResource( 5 )
+
+[node name="Environment" type="Spatial" parent="."]
+editor/display_folded = true
+
+[node name="Floor" type="StaticBody" parent="Environment"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/Floor"]
+shape = SubResource( 8 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Environment/Floor"]
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="wall1" type="StaticBody" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/wall1"]
+shape = SubResource( 10 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Environment/wall1"]
+mesh = SubResource( 11 )
+material/0 = ExtResource( 6 )
+
+[node name="wall2" type="StaticBody" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/wall2"]
+shape = SubResource( 10 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Environment/wall2"]
+mesh = SubResource( 11 )
+material/0 = ExtResource( 6 )
+
+[node name="wall3" type="StaticBody" parent="Environment"]
+transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 5, -51 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/wall3"]
+shape = SubResource( 10 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Environment/wall3"]
+mesh = SubResource( 11 )
+material/0 = ExtResource( 6 )
+
+[node name="wall4" type="StaticBody" parent="Environment"]
+transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 5, 51 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/wall4"]
+shape = SubResource( 10 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Environment/wall4"]
+mesh = SubResource( 11 )
+material/0 = ExtResource( 6 )
+[connection signal="body_shape_entered" from="3D Plane" to="3D Plane" method="_on_3D_Plane_body_shape_entered"]
+[connection signal="body_shape_exited" from="3D Plane" to="3D Plane" method="_on_3D_Plane_body_shape_exited"]
+[connection signal="value_changed" from="UI/HSlider" to="3D Plane" method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="UI/HSlider" to="UI/HSlider" method="_on_HSlider_value_changed"]

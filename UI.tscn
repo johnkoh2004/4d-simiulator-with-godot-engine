@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://HSlider.gd" type="Script" id=1]
+
+[node name="UI" type="Control"]
+margin_left = 13.718
+margin_top = 16.2901
+margin_right = 53.718
+margin_bottom = 56.2901
+
+[node name="HSlider" type="HSlider" parent="."]
+margin_left = -4.28687
+margin_top = -3.4295
+margin_right = 218.713
+margin_bottom = 12.5705
+min_value = -50.0
+max_value = 50.0
+ticks_on_borders = true
+script = ExtResource( 1 )
+[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_HSlider_value_changed"]
